@@ -96,6 +96,7 @@ export default defineComponent({
     const store = useStore();
 
     const project = computed(() => {
+      console.log("changed");
       return store.getters["project/projectById"](
         idFromSlug(props.projectSlug)
       );

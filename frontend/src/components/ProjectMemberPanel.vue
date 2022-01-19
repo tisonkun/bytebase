@@ -38,7 +38,8 @@
                     class="btn"
                     value="OWNER"
                   />
-                 {{ $t("common.role.owner") }} </label>
+                  {{ $t("common.role.owner") }}
+                </label>
               </div>
               <div class="radio">
                 <label class="label">
@@ -50,7 +51,8 @@
                     class="btn"
                     value="DEVELOPER"
                   />
-                 {{ $t("common.role.developer") }} </label>
+                  {{ $t("common.role.developer") }}
+                </label>
               </div>
             </div>
             <button
@@ -61,6 +63,16 @@
             >
               <heroicons-outline:user-add class="mr-2 w-5 h-5" />
               {{ $t("project.settings.add-member") }}
+            </button>
+
+            <button
+              type="button"
+              class="btn-primary items-center"
+              :disabled="project.workflowType === 'vcs'"
+              @click.prevent="syncFromVCS"
+            >
+              <heroicons-outline:refresh class="mr-2 w-5 h-5" />
+              {{ $t("project.settings.sync-from-vcs") }}
             </button>
           </div>
         </div>
@@ -204,6 +216,20 @@ export default {
       state.error = "";
     };
 
+    const syncFromVCS = () => {
+      store
+        .dispatch("project/syncMemberRoleFromGitLab", {
+          projectId: props.project.id,
+        })
+        .then(() => {
+          store.dispatch("notification/pushNotification", {
+            module: "bytebase",
+            style: "SUCCESS",
+            title: t("project.settings.success-member-sync-prompt"),
+          });
+        });
+    };
+
     return {
       state,
       hasAdminFeature,
@@ -212,6 +238,7 @@ export default {
       clearValidationError,
       hasValidMember,
       addMember,
+      syncFromVCS,
     };
   },
 };
