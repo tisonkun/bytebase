@@ -89,6 +89,8 @@ function convertMember(
     updatedTs: attrs.updatedTs,
     role: attrs.role,
     principal,
+    roleProvider: attrs.roleProvider,
+    payload: attrs.payload,
   };
 }
 

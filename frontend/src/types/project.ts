@@ -13,6 +13,13 @@ export type ProjectVisibility = "PUBLIC" | "PRIVATE";
 
 export type ProjectTenantMode = "DISABLED" | "TENANT";
 
+export type ProjectRoleProvider = "GITLAB_SELF_HOST" | "BYTEBASE";
+
+export type ProjectRoleProviderPayload = {
+  vcsRole: string;
+  syncTs: number;
+};
+
 // Project
 export type Project = {
   id: ProjectId;
@@ -67,6 +74,8 @@ export type ProjectMember = {
   // Domain specific fields
   role: ProjectRoleType;
   principal: Principal;
+  roleProvider: ProjectRoleProvider;
+  payload?: ProjectRoleProviderPayload;
 };
 
 export type ProjectMemberCreate = {
