@@ -75,7 +75,7 @@ export type ProjectMember = {
   role: ProjectRoleType;
   principal: Principal;
   roleProvider: ProjectRoleProvider;
-  payload?: ProjectRoleProviderPayload;
+  payload: ProjectRoleProviderPayload;
 };
 
 export type ProjectMemberCreate = {

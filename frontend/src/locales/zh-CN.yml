@@ -166,6 +166,7 @@ common:
   delete: 删除
   history: 历史记录
   loading: 加载中
+  from: 来自于
 error-page:
   go-back-home: 回到主页
 anomaly-center: 异常中心
