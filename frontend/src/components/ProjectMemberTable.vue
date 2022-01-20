@@ -95,7 +95,6 @@
             >{{ member.updater.name }}
           </router-link>
           <!-- we only show user's role provider if hers is not Bytebase -->
-          {{ member.roleProvider }}
           <template v-if="member.roleProvider !== 'BYTEBASE'">
             <span>{{ $t("common.from") }}</span>
             <div class="tooltip-wrapper">
@@ -107,7 +106,10 @@
                   })
                 }}
               </span>
-              <img class="w-4 ml-1" src="../assets/gitlab-logo.svg" />
+              <img
+                class="w-4 ml-1"
+                :src="RoleProviderConfig[member.roleProvider].iconPath"
+              />
             </div>
           </template>
         </div>
@@ -179,7 +181,6 @@ export default {
         for (const member of props.project.memberList) {
           if (member.role == "OWNER") {
             ownerList.push(member);
-            console.log("rolerolerole", member);
           }
 
           if (member.role == "DEVELOPER") {
