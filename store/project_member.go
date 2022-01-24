@@ -136,7 +136,7 @@ func createProjectMember(ctx context.Context, tx *Tx, create *api.ProjectMemberC
 			role_provider,
 			payload
 		)
-		VALUES (?, ?, ?, ?, ?)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
 		RETURNING id, creator_id, created_ts, updater_id, updated_ts, project_id, role, principal_id, role_provider, payload
 	`,
 		create.CreatorID,
@@ -144,6 +144,8 @@ func createProjectMember(ctx context.Context, tx *Tx, create *api.ProjectMemberC
 		create.ProjectID,
 		create.Role,
 		create.PrincipalID,
+		create.RoleProvider,
+		create.Payload,
 	)
 
 	if err != nil {
