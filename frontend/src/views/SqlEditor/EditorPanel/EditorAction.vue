@@ -44,7 +44,7 @@
             <carbon:share class="h-5 w-5" /> &nbsp; {{ $t("common.share") }}
           </NButton>
         </template>
-        <SharePopover @close="isShowSharePopover = false" />
+        <SharePopover ref="sharePopover" @close="isShowSharePopover = false" />
       </NPopover>
     </div>
   </div>
@@ -59,6 +59,7 @@ import {
   useNamespacedActions,
   useNamespacedGetters,
 } from "vuex-composition-helpers";
+import { onClickOutside } from "@vueuse/core";
 
 import {
   SqlEditorState,
@@ -101,6 +102,7 @@ const { updateCurrentTab } = useNamespacedActions<TabActions>("tab", [
 const selectedConnection = ref();
 const isSeletedDatabase = ref(false);
 const isShowSharePopover = ref(false);
+const sharePopover = ref(null);
 const isEmptyStatement = computed(
   () => !currentTab.value || currentTab.value.statement === ""
 );
@@ -192,6 +194,7 @@ watch(
 );
 
 onMounted(() => {
+  onClickOutside(sharePopover, (event) => (isShowSharePopover.value = false));
   setSelectedConnection(connectionContext.value);
 });
 </script>
